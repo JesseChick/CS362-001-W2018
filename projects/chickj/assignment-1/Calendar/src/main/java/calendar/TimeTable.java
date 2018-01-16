@@ -15,11 +15,9 @@ import java.util.*;
 
 public class TimeTable {
 
-	
     public TimeTable() {
 
     }
-	
     
     /**
      * Retrieves a range of appointments between two dates.
@@ -40,7 +38,6 @@ public class TimeTable {
 	        	throw new DateOutOfRangeException ("Second date specified is not  before the first date specified.");
 	        }
 	        
-	        
 	        //Create the first CalDay object with the starting date and add to list
 	        GregorianCalendar nextDay = (GregorianCalendar) firstDay.clone();
 	        while (nextDay.before(lastDay)) {
@@ -52,7 +49,7 @@ public class TimeTable {
 	        //Retrieve the appts - <appt> 
 		for (int i = 0; i < appts.size(); i++) {
 			Appt appt=appts.get(i);
-			if(!appt.getValid()) continue;
+			if(appt.getValid()) continue; // bug introduced
 			// Figure out which days the appointment occurs on
 			LinkedList<GregorianCalendar> apptOccursOnDays = getApptOccurences(
 					appt, firstDay, lastDay);

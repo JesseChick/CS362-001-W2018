@@ -29,12 +29,15 @@ public class CalendarUtil {
 		
 		int baseDays = DaysInMonth[month];
 	
-		if(IsLeapYear(year) && (month == FEBRUARY)) {
+		if(IsLeapYear(year) && (month == FEBRUARY - 1)) { // bug introduced
 				baseDays = baseDays + 1;
 		}
 	
 		return baseDays;
 	}
+
+	
+	
 	/**
 	*	Determines if the specified year is a Leap Year
 	*	
@@ -43,9 +46,9 @@ public class CalendarUtil {
 	**/
 	public static boolean IsLeapYear(int year) {
 	//if the year is a multiple of 100, the year is a leap year if its also a multiple of 400
-		if ((year % 100) == 0) {
+		if ((year % 400) == 0) { // bug introduced
 			
-			if((year % 400) == 0) {
+			if((year % 100) == 0) { // pt 2 of bug two lines above
 				return true;
 			}
 			else{
