@@ -49,7 +49,7 @@ public class TimeTable {
 	        //Retrieve the appts - <appt>
 		for (int i = 0; i < appts.size(); i++) {
 			Appt appt=appts.get(i);
-			if(appt.getValid()) continue; // bug introduced
+			if(!appt.getValid()) continue; 
 			// Figure out which days the appointment occurs on
 			LinkedList<GregorianCalendar> apptOccursOnDays = getApptOccurences(
 					appt, firstDay, lastDay);
