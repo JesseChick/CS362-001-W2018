@@ -12,39 +12,17 @@ public class ApptTest {
 	*/
 	@Test
 	public void test01()  throws Throwable  {
-		int startHour=21;
-		int startMinute=30;
-		int startDay=15;
-		int startMonth=01;
-		int startYear=2018;
-		String title="Birthday Party";
-		String description="This is my birthday party.";
-		//Construct a new Appointment object with the initial data
-		Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
+		// Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
+		Appt appt = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
 
 		// assertions
 		assertTrue(appt.getValid());
-		assertEquals(21, appt.getStartHour());
-		assertEquals(30, appt.getStartMinute());
-		assertEquals(15, appt.getStartDay());
-		assertEquals(01, appt.getStartMonth());
-		assertEquals(2018, appt.getStartYear());
-		assertEquals("Birthday Party", appt.getTitle());
-		assertEquals("This is my birthday party.", appt.getDescription());
 	}
 
 	// Tests isValid
 	@Test(expected=java.lang.ArrayIndexOutOfBoundsException.class)
 	public void test02()  throws Throwable  {
-		int startHour=21;
-		int startMinute=30;
-		int startDay=15;
-		int startMonth=01;
-		int startYear=2018;
-		String title="Birthday Party";
-		String description="This is my birthday party.";
-		//Construct a new Appointment object with the initial data
-		Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
+		Appt appt = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
 
 		appt.setStartHour(-1);
 		appt.setStartHour(30);
@@ -66,8 +44,12 @@ public class ApptTest {
 	// Tests recur stuff
 	@Test
 	public void test03()  throws Throwable  {
-		Appt appt = new Appt(0, 0, 0, 1, 2018, "NY", "First moment of 2018");
+		Appt appt = new Appt(0, 0, 0, 1, 2017, "NY", "First moment of 2018");
+		appt.setStartYear(2018);
 		appt.setRecurrence(null, 0, 0, 1);
+		int[] rdays = {3,4,5};
+		appt.setRecurrence(rdays, 0, 0, 1);
+		assertEquals(appt.getRecurDays(), rdays);
 		// assertEquals(null, appt.getRecurDays());
 		assertTrue(appt.isRecurring());
 		assertEquals(0, appt.getRecurBy());
@@ -78,19 +60,14 @@ public class ApptTest {
 
 	@Test
 	public void test04()  throws Throwable  {
-		int startHour=21;
-		int startMinute=30;
-		int startDay=15;
-		int startMonth=01;
-		int startYear=2018;
-		String title="Birthday Party";
-		String description="This is my birthday party.";
-		Appt appt1 = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
-
+		Appt appt1 = new Appt(21, 30, 15, 01, 2018, "title", "desc");
+		appt1.setDescription(null);
+		appt1.setTitle(null);
+		// assertEquals(appt1.toString(), null);
 		Appt appt2 = new Appt(22, 29, 16, 02, 2017, "Kickback", "Hanging with the fellas.");
 
-		// appt1.compareTo(appt2);
 		assertEquals(appt2.compareTo(appt1), 1);
+
 
 	}
 
