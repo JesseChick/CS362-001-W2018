@@ -7,15 +7,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 public class ApptTest {
-	/**
-	* Test that the gets methods work as expected.
-	*/
+	// ASSIGNMENT 2
 	@Test
 	public void test01()  throws Throwable  {
 		// Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
 		Appt appt = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
-
-		// assertions
 		assertTrue(appt.getValid());
 	}
 
@@ -25,15 +21,21 @@ public class ApptTest {
 		Appt appt = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
 
 		appt.setStartHour(-1);
+		assertFalse(appt.getValid());
 		appt.setStartHour(30);
 		appt.setStartHour(12);
 
 		appt.setStartMinute(-1);
+		assertFalse(appt.getValid());
 		appt.setStartMinute(66);
 		appt.setStartMinute(30);
 
 		appt.setStartDay(35);
+		assertFalse(appt.getValid());
 		appt.setStartDay(20);
+
+		// appt.setStartYear(-1242);
+		// assertFalse(appt.getValid());
 
 		appt.setStartMonth(-1);
 		appt.setStartMonth(7);
@@ -56,7 +58,6 @@ public class ApptTest {
 		assertEquals(1, appt.getRecurNumber());
 		assertEquals(0, appt.getRecurIncrement());
 	}
-	//add more unit tests as you needed
 
 	@Test
 	public void test04()  throws Throwable  {
@@ -67,8 +68,58 @@ public class ApptTest {
 		Appt appt2 = new Appt(22, 29, 16, 02, 2017, "Kickback", "Hanging with the fellas.");
 
 		assertEquals(appt2.compareTo(appt1), 1);
-
-
 	}
 
+	// ASSIGNMENT 3
+	@Test
+	public void test05() throws Throwable {
+		Appt appt = new Appt(1, 1, 1, 1, 2018, "first", "first day of the year");
+		assertEquals(appt.getTitle(), "first");
+		assertEquals(appt.getDescription(), "first day of the year");
+
+		int[] rdays = new int[0];
+		appt.setRecurrence(rdays, Appt.RECUR_BY_MONTHLY, 1, Appt.RECUR_NUMBER_NEVER);
+		assertEquals(appt.getRecurDays(), rdays);
+		assertEquals(appt.getRecurBy(), Appt.RECUR_BY_MONTHLY);
+		assertEquals(appt.getRecurIncrement(), 1);
+		assertEquals(appt.getRecurNumber(), Appt.RECUR_NUMBER_NEVER);
+
+		appt.setStartHour(23);
+		assertTrue(appt.getValid());
+	}
+	@Test
+	public void test06() throws Throwable {
+		Appt appt = new Appt(1, 1, 1, 1, 2018, "first", "first day of the year");
+		appt.setStartHour(23);
+		assertTrue(appt.getValid());
+		appt.setStartMinute(59);
+		assertTrue(appt.getValid());
+		appt.setStartMonth(12);
+		assertTrue(appt.getValid());
+		appt.setStartDay(CalendarUtil.NumDaysInMonth(appt.getStartYear(), appt.getStartMonth()-1));
+		assertTrue(appt.getValid());
+
+		String str = appt.toString();
+		assertNotNull(str);
+		// assertTrue(appt.getValid());
+		appt.setStartHour(11);
+		str = appt.toString();
+		assertTrue(str.contains("am ,"));
+		// appt.setStartHour(11);
+		// str = appt.toString();
+		// assertTrue(str.contains("-1"));
+		appt.setStartHour(0);
+		str = appt.toString();
+		assertTrue(str.contains(" at 12"));
+		// appt.setStartHour()
+
+		appt.setStartHour(-1);
+		appt.toString();
+		// Appt bad = new Appt(-1,-1,-1,-1,2018, "asfd", "sfasdfa");
+		// try {
+		// 	bad.toString();
+		// } catch (Exception e) {
+		// 	assertTrue(e.getMessage().contains("Exception"));
+		// }
+	}
 }

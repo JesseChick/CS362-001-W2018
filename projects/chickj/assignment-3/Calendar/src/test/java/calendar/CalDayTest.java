@@ -5,6 +5,8 @@ package calendar;
  */
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+// import java.util.RuntimeException;
 
 
 import org.junit.Test;
@@ -37,7 +39,7 @@ public class CalDayTest {
 		day1.iterator();
 	}
 	@Test
-	public void test02()  throws Throwable  {
+	public void test02() throws Throwable  {
 		CalDay defaultDay = new CalDay();
 		defaultDay.toString();
 
@@ -51,4 +53,30 @@ public class CalDayTest {
 
 		day1.toString();
 	}
+
+  @Test
+  //(expected=java.lang.RuntimeException.class)
+	public void test03() throws Throwable  {
+    CalDay day1 = new CalDay(new GregorianCalendar(2018, 1, 4, 0, 0));
+		Appt appt1 = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
+		Appt appt2 = new Appt(0, 0, 2, 1, 2018, "second", "second day of the year");
+		Appt appt3 = new Appt(0, 0, 3, 1, 2018, "third", "third day of the year");
+		day1.addAppt(appt1);
+		day1.addAppt(appt3);
+		day1.addAppt(appt2);
+
+    String str = day1.toString();
+    assertFalse(str.contains("\n\n"));
+
+    CalDay defaultDay = new CalDay();
+    Iterator<?> itr = defaultDay.iterator();
+    // try {
+    //   throw new RuntimeException("RuntimeException");
+    //   // itr = defaultDay.iterator();
+    //   // fail("Expecting exception: RuntimeException");
+    // } catch (RuntimeException e) {
+    //   assertTrue(e.getMessage().contains("RuntimeException"));
+    // }
+    // assertNull(itr);
+  }
 }
