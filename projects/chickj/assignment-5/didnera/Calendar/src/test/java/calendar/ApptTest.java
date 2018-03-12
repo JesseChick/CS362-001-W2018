@@ -20,10 +20,10 @@ public class ApptTest {
 	public void test02()  throws Throwable  {
 		Appt appt = new Appt(0, 0, 1, 1, 2018, "first", "first day of the year");
 
-		// appt.setStartHour(25);
-		// assertFalse(appt.getValid());
-		// appt.setStartHour(30);
-		// appt.setStartHour(12);
+		appt.setStartHour(25);
+		assertFalse(appt.getValid());
+		appt.setStartHour(30);
+		appt.setStartHour(12);
 
 		appt.setStartMinute(-1);
 		assertFalse(appt.getValid());
