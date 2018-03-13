@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 public class ApptTest {
-	// ASSIGNMENT 2
 	@Test
 	public void test01()  throws Throwable  {
 		// Appt appt = new Appt(startHour, startMinute, startDay, startMonth, startYear, title, description);
